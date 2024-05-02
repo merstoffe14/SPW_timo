@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from router import bridge, router
 import threading
+from periphery import Serial
+
 
 '''
 For more structure, we use static files.
@@ -22,7 +24,10 @@ app.mount("/", StaticFiles(directory="static", html=True), name="static")
 @app.on_event('startup')
 async def app_startup():
     print("main startup")
+    serial = Serial("/dev/ttyUSB0", 115200)
+
     await bridge.open_bridge()
+
     
     # thread_threadname = threading.Thread(target=class.run_main)
     # thread_threadname.start()  

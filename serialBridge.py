@@ -3,6 +3,8 @@ import time
 from sys import platform
 import serial.tools.list_ports as port_list
 
+
+
 class SerialBridge:
 
     async def open_bridge(self):
@@ -57,19 +59,21 @@ class SerialBridge:
     
     def connect_to_ports(self) -> serial.Serial:
 
-        #####        
-        ard=None
-        all_ports = list(port_list.comports())
-        pos_ports = [p.device for p in all_ports  if "CH340" in p.description]
+        # #####        
+        # ard=None
+        # all_ports = list(port_list.comports())
+        # pos_ports = [p.device for p in all_ports  if "CH340" in p.description]
        
-        if len(pos_ports)==0:       print("No Port Found"); ## You may wish to cause an error here.   
-        ## Search for Suitable Port
-        for port in pos_ports: 
-            try:      
-                ard = serial.Serial(port, 115200, timeout=0.1)
-                print("Connecting to port"+ port)
-            except:   
-                continue
+        # if len(pos_ports)==0:       print("No Port Found"); ## You may wish to cause an error here.   
+        # ## Search for Suitable Port
+        # for port in pos_ports: 
+        #     try:      
+        #         ard = serial.Serial(port, 115200, timeout=0.1)
+        #         print("Connecting to port"+ port)
+        #     except:   
+        #         continue
+        ard = serial.Serial("COM4", 9600, timeout=0.1)
+
         return ard
 
     def connect_to_ports_linux(self) -> serial.Serial:
